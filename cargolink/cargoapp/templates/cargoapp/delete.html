@@ -1,0 +1,33 @@
+{%extends 'cargoapp/base.html'%}
+{%load static%}
+
+
+{%block content%}
+
+        <div id="customer-order" class="col-lg-9">
+          <div class="box">
+            
+          <div id="customer-orders" class="col-md-9">
+            <div class="box mt-0 mb-lg-0">
+              <p class="text-muted lead">Are you sure you want to delete bid for"{{item.product.name}}"?</p>
+              {%if wish%}  
+              <form action="{%url 'delete-booking' item.id%}" method="POST">
+                    {%csrf_token%}
+                  <a href="{%url 'dashboard'%}" class="btn btn-template-outlined btn-sm">Cancel</a>
+                  <input class="btn btn-sm btn-danger" type="submit" value="yes">
+                </form>
+              {%else%}
+              <form act3ion="{%url 'delete-booking' item.id%}" method="POST">
+                {%csrf_token%}
+              <a href="{%url 'dashboard'%}" class="btn btn-template-outlined btn-sm">Cancel</a>
+              <input class="btn btn-sm btn-danger" type="submit" value="yes">
+            </form>
+            {%endif%}
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    {%endblock%}
+    <!-- Javascript files-->
+  
