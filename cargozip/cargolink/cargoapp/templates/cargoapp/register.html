@@ -1,0 +1,44 @@
+
+
+{%load static%}
+{%include 'cargoapp/head.html'%}
+<body></body>
+    <div class="login-page">
+      <div class="container d-flex align-items-center position-relative py-5">
+        <div class="card shadow-sm w-100 rounded overflow-hidden bg-none">
+          <div class="card-body p-0">
+            <div class="row gx-0 align-items-stretch">
+              <!-- Logo & Information Panel-->
+              <div class="col-lg-6">
+                
+                <div class="info d-flex justify-content-center flex-column p-4 h-100">
+                  <div class="py-5">
+                    <h1 class="display-6 fw-bold">Sign Up</h1>
+                    <p class="fw-light mb-0"></p>
+                  </div>
+                </div>
+              </div>
+              <!-- Form Panel    -->
+              <div class="col-lg-6 bg-white">
+                <div class="d-flex align-items-center px-4 px-lg-5 h-100">
+                  <form class="login-form py-5 w-100" method="POST" action="">
+                    {%csrf_token%}
+                    {%for message in messages%}
+                <div class="alert alert-danger" role="alert">
+                {{message}}
+              </div>
+                {%endfor%}
+                    {{form}}
+                    <button class="btn btn-primary mb-3" id="login" type="submit">Signup</button><br><a class="text-sm text-paleBlue" href="{%url 'reset_password'%}">Forgot Password?</a><br><small class="text-gray-500">Have an account? </small><a class="text-sm text-paleBlue" href="{%url 'login'%}">Login</a>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  
+    {%include 'cargoapp/scripts.html'%}
+    </body>

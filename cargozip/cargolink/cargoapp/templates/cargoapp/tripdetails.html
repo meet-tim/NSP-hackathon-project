@@ -1,0 +1,71 @@
+
+{%extends 'cargoapp/base.html'%}
+{%load static%}
+{%block content%}
+        <div class="content-inner w-100">
+          <!-- Page Header-->
+          <header class="bg-white shadow-sm px-4 py-3 z-index-20">
+            <div class="container-fluid px-0">
+              <h2 class="mb-0 p-1">Trip detail for {{trip}}</h2>
+            </div>
+          </header>
+          <!-- Dashboard Counts Section-->
+          <section class="pb-0">
+            <div class="container-fluid">
+              <div class="row gy-4">
+                <!-- Work Amount  -->
+
+                <!-- Client Profile -->
+                <div class="col-lg-12">
+                  <div class="card mb-0">
+                    <div class="card-close">
+                      <div class="dropdown">
+                        <button class="dropdown-toggle text-sm" type="button" id="closeCard1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                        <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="closeCard1"><a class="dropdown-item py-1 px-3 remove" href="#"> <i class="fas fa-times"></i>Close</a><a class="dropdown-item py-1 px-3 edit" href="#"> <i class="fas fa-cog"></i>Edit</a></div>
+                      </div>
+                    </div>
+                    <div class="card-body text-center">
+
+                      <h3 class="fw-normal">from {{trip.departure_location}} to {{trip.destination}} </h3>
+                      <p class="text-sm text-gray-500 mb-1">{{trip.departure_time}}</p>
+                      <div class="row py-4 gy-3">
+                        <div class="col-4"><strong class="d-block lh-1">{{space_left|default:"empty"}}</strong><small>space left</small></div>
+                        <div class="col-4"><strong class="d-block lh-1"> {{ total_bookings }}</strong><small>people booked</small></div>
+                        <div class="col-4"><strong class="d-block lh-1">{{total_gains}}</strong><small>estimated price </small></div>
+                      </div>
+                      <div class="container">
+                        <h3>List of Cargo Owners</h1>
+                        <table class="row">
+                              <tr>
+                                 <th class="col-lg-4">Tag</th>
+                                 <th class="col-lg-4">fullname</th>
+                                 <th class="col-lg-4">cargo size</th>
+                                 <th class="col-lg-4">Contact</th>
+                              </tr>
+                              {%for booking in bookings%}
+                              <tr >
+                                  <td class="col-lg-4">{{booking.pk}}</td>
+                                  <td class="col-lg-4">{{booking.full_name}}</td>
+                                  <td class="col-lg-4">{{booking.cargo_size}}</td>
+                                   <td class="col-lg-4">{{booking.phone}}</td>
+                              </tr>
+                              {%endfor%}
+
+                          </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Client Section-->
+
+
+          <!-- Page Footer-->
+
+
+        </div>
+ {%endblock%}

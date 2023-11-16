@@ -1,0 +1,109 @@
+{%extends 'cargoapp/base.html'%}
+{%load static%}
+{%block content%}
+<section class="forms">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Basic Form-->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-close">
+                <div class="dropdown">
+                  <button class="dropdown-toggle text-sm" type="button" id="closeCard1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                  <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="closeCard1"><a class="dropdown-item py-1 px-3 remove" href="#"> <i class="fas fa-times"></i>Close</a><a class="dropdown-item py-1 px-3 edit" href="#"> <i class="fas fa-cog"></i>Edit</a></div>
+                </div>
+              </div>
+              <h3 class="h4 mb-0">Price Estimator</h3>
+            </div>
+            <div class="card-body">
+              <p class="text-sm">You can determine your estimated price before the journey</p>
+
+                <div class="row gy-2 mb-4">
+                  <label class="col-sm-3 form-label" for="inputHorizontalElOne">Length</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" name="length" id="inputHorizontalElOne" type="number" placeholder="Length"><small class="form-text">Enter length of package in Inches</small>
+                  </div>
+                </div>
+                <div class="row gy-2 mb-4">
+                  <label class="col-sm-3 form-label" for="inputHorizontalElTwo">Breadth</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" name="breadth" id="inputHorizontalElTwo" type="number" placeholder="Breadth"><small class="form-text">Enter Breadth of package in Inches</small>
+                  </div>
+                </div>
+                <div class="row gy-2 mb-4">
+                  <label class="col-sm-3 form-label" for="inputHorizontalElTwo">Height</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" name="height" id="inputHorizontalElTwo" type="number" placeholder="Height"><small class="form-text">Enter Height of package in Inches</small>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-9 ms-auto">
+                    <button onclick="calculateArea(event)" class="btn btn-primary">calculate</button>
+                    <p id="result">0</p>
+                    <p id="areares">0.0</p>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-close">
+                <div class="dropdown">
+                  <button class="dropdown-toggle text-sm" type="button" id="closeCard1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                  <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="closeCard1"><a class="dropdown-item py-1 px-3 remove" href="#"> <i class="fas fa-times"></i>Close</a><a class="dropdown-item py-1 px-3 edit" href="#"> <i class="fas fa-cog"></i>Edit</a></div>
+                </div>
+              </div>
+              <h3 class="h4 mb-0">Book Trip</h3>
+            </div>
+            <div class="card-body">
+              <p class="text-sm">Proceed to book trip</p>
+              <form method="POST" action="">
+                {%csrf_token%}
+                {{form}}
+                <br>
+                <button class="btn btn-primary" type="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Horizontal Form-->
+
+
+
+      </div>
+    </div>
+  </section>
+<script>
+  function calculateArea(e) {
+    // Get input values by name
+    e.preventDefault()
+    console.log("hello")
+    const length = parseFloat(document.querySelector('input[name="length"]').value);
+    const breadth = parseFloat(document.querySelector('input[name="breadth"]').value);
+    const height = parseFloat(document.querySelector('input[name="height"]').value);
+    const resultElement = document.getElementById("result")
+    const areaElement = document.getElementById("areares")
+    // Check if inputs are valid numbers
+    if (isNaN(length) || isNaN(breadth) || isNaN(height)) {
+        alert('Please enter valid numerical values for length, breadth, and height.');
+        return;
+    }
+
+    // Calculate area
+    let area = length * breadth * height;
+    const LITRE = 0.016387064
+    //convert to litres
+    area_in_litres = area*0.016387064
+
+    let price = area*1.2
+    resultElement.innerText = "GHC " + price.toFixed(2)
+    areaElement.innerText = area_in_litres.toFixed(2) + "Litres"
+    // Display the result (you can do whatever you want with it)
+
+}
+</script>
+{%endblock%}

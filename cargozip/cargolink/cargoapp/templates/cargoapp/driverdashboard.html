@@ -1,0 +1,110 @@
+
+{%extends 'cargoapp/base.html'%}
+{%load static%}
+{%block driverdashboard%}active{%endblock%}
+{%block content%}
+        <div class="content-inner w-100">
+          <!-- Page Header-->
+          <header class="bg-white shadow-sm px-4 py-3 z-index-20">
+            <div class="container-fluid px-0">
+              <h2 class="mb-0 p-1">Dashboard</h2>
+            </div>
+          </header>
+          <!-- Dashboard Counts Section-->
+
+                {%for message in messages%}
+                {%if message.tags == "error"%}
+                 <div class="alert alert-danger" role="alert">
+                    {{message}}
+                </div>
+                {%else%}
+                <div class="alert alert-{{message.tags}}" role="alert">
+                    {{message}}
+                </div>
+                {%endif%}
+                {%endfor%}
+          {%for trip in mytrips%}
+          <section class="pb-0">
+            <div class="container-fluid">
+              <div class="row gy-4">
+                <!-- Work Amount  -->
+
+                <!-- Client Profile -->
+                <div class="col-lg-4">
+                  <div class="card mb-0">
+                    <div class="card-close">
+                      <div class="dropdown">
+                        <button class="dropdown-toggle text-sm" type="button" id="closeCard1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                        <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="closeCard1"><a class="dropdown-item py-1 px-3 remove" href="#"> <i class="fas fa-times"></i>Close</a><a class="dropdown-item py-1 px-3 edit" href="#"> <i class="fas fa-cog"></i>Edit</a></div>
+                      </div>
+                    </div>
+                    <div class="card-body text-center">
+
+                      <h3 class="fw-normal">from {{trip.departure_location}} to {{trip.destination}} </h3>
+                      <p class="text-sm text-gray-500 mb-1">{{trip.departure_time}}</p>
+                      <a class="btn btn-faintGreen btn-sm text-white px-4 rounded-pill py-0" href="{%url 'trip-detail' trip.id%}">Trip Detail</a>
+                      <a class="btn btn-danger btn-sm text-white px-4 rounded-pill py-0" href="{%url 'unaccept-trip' trip.id%}">Decline</a>
+                      <div class="row py-4 gy-3">
+                        <div class="col-4"><strong class="d-block lh-1">{{trip.space_left|default:"empty"}}</strong><small>space left</small></div>
+                        <div class="col-4"><strong class="d-block lh-1"> {{ trip.total_bookings }}</strong><small>people booked</small></div>
+                        <div class="col-4"><strong class="d-block lh-1">{{trip.total_gains}}</strong><small>current gains </small></div>
+                      </div>
+                      <div class="d-flex justify-content-between">
+
+                        NB:Prices may change due to number of bookings
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+          {%endfor%}
+          <!-- Projects Section-->
+          <section class="pb-0">
+            <div class="container-fluid">
+              {%for trip in trips%}
+              <!-- Project-->
+              <div class="card mb-3">
+                <div class="card-body p-3">
+                  <div class="row align-items-center gx-lg-5 gy-3">
+                    <div class="col-lg-6 border-lg-end">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            {%if trip.driver%}
+                            <a class="btn btn-primary btn-sm text-white px-4 rounded-pill py-0" href="{%url 'unaccept-trip' trip.id%}">Decline</a>
+                            {%else%}
+                          <a class="btn btn-primary btn-sm text-white px-4 rounded-pill py-0" href="{%url 'accept_trip' trip.id%}">Accept</a>
+                            {%endif%}
+                          <div class="ms-3">
+                            <h3 class="h4 text-gray-700 mb-0">{{trip.departure_location}} - {{trip.destination}}</h3><small class="text-gray-500">{{trip.space_left|default:"empty"}} space left</small>
+                          </div>
+                        </div><span class="text-sm text-gray-600 d-none d-sm-block">{{trip.departure_time}}</span>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                      <div class="d-flex align-items-center">
+
+                        <div class="progress w-100" style="height: 5px; max-width: 15rem">
+
+                          <div class="progress-bar bg-red" role="progressbar" style="width: 45%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {%endfor%}
+
+            </div>
+          </section>
+          <!-- Client Section-->
+
+
+          <!-- Page Footer-->
+
+
+        </div>
+ {%endblock%}
